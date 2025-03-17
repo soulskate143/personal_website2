@@ -239,7 +239,6 @@
       color: #ff6b6b;
     }
   
-    /* Ensure Menu Button is Always Visible */
     .menuToggle {
       position: absolute;
       top: 1.5rem;
@@ -830,21 +829,21 @@
     height: 350px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Content aligned at the bottom */
+    justify-content: flex-end;
   }
   
   /* Gradient overlay for right half */
   .card .gradientOverlay {
     position: absolute;
     top: 0;
-    left: 10%; /* Start gradient from the middle */
+    left: 10%;
     width: 50%;
     height: 100%;
     background: linear-gradient(
       90deg,
       rgba(0, 173, 181, 0.7),
       rgba(0, 0, 0, 0.6)
-    ); /* Customize gradient */
+    );
     z-index: 1;
   }
   
@@ -967,15 +966,15 @@
 .contactGrid {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  align-items: center; /* Center items horizontally */
+  gap: 1rem;
+  align-items: center; 
   justify-content: center;
   margin: 0 auto;
   width: 100%;
   max-width: 960px;
   padding: 1rem;
   box-sizing: border-box;
-  text-align: center; /* Center text content */
+  text-align: center;
 }
 
 @media (min-width: 768px) {
@@ -983,7 +982,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center; /* Ensure vertical alignment in rows */
+    align-items: center; 
     text-align: center;
   }
 }
@@ -992,7 +991,7 @@
 .contactItem {
   display: flex;
   align-items: center;
-  justify-content: center; /* Center content inside the item */
+  justify-content: center; 
   gap: 0.5rem;
   font-size: 1rem;
   color: #b3b3b3;
@@ -1000,9 +999,9 @@
   width: 100%;
   max-width: 350px;
   word-break: break-word;
-  text-align: center; /* Center text */
-  margin: 0 auto; /* Center each item in its own space */
-  flex-direction: column; /* Stack icon and text vertically for better center alignment */
+  text-align: center; 
+  margin: 0 auto; 
+  flex-direction: column; 
 }
 
 /* Icons */
@@ -1299,8 +1298,8 @@
 }
 
 .projectLink:hover {
-    background: rgba(255, 255, 255, 0.05); /* transparent inside */
-    backdrop-filter: blur(10px); /* frosted glass look */
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(10px); 
     box-shadow: 0 0 18px rgba(43, 108, 176, 0.7),
                 0 0 30px rgba(43, 108, 176, 0.5),
                 0 0 40px rgba(43, 108, 176, 0.3);
