@@ -88,7 +88,6 @@ export default function AboutPage() {
         className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-500/10 via-purple-600/10 to-black blur-3xl opacity-50"
         style={{ y: parallaxY }}
       />
-
       <section className="min-h-screen w-full px-6 md:px-20 lg:px-32 pt-24 pb-36">
         {/* Header */}
         <motion.div
