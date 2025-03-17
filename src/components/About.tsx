@@ -100,7 +100,7 @@ export default function AboutPage() {
   {/* IMAGE SECTION */}
   <div className="w-full md:w-[40%] md:mr-0 md:pl-40 flex justify-center md:justify-start">
     <div className="w-full max-w-[280px] overflow-hidden rounded-xl shadow-lg border border-gray-700">
-      <img
+      <Image
         src="/images/logo2.png"
         alt="About Me"
         className="w-full h-auto object-cover"
