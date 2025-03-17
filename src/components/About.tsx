@@ -17,6 +17,7 @@ import Lenis from "@studio-freight/lenis";
 import Projects from "../components/Projects";
 import Hobbies from "../components/Hobbies";
 import Contact from "../components/Contact";
+import Image from "next/image";
 
 const skills = [
   { name: "HTML", icon: <FaHtml5 className="text-orange-500 text-3xl" /> },
