@@ -963,101 +963,93 @@
     display: inline-block;
   }
   
+/* Contact Grid Layout */
+.contactGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center; /* CENTER the items horizontally */
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 960px;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
   .contactGrid {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    max-width: 100%;
-    margin: 0 auto;
-  }
-  
-  @media (min-width: 768px) {
-    .contactGrid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      max-width: 1200px;
-    }
-  }
-  
-  .contactInfo,
-  .socialLinks {
-    background: var(--background-gradient-background);
-    padding: 1rem;
-    border-radius: 15px;
-  }
-  
-  .contactItem {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding: 0.1rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-  }
-  
-  .contactIcon {
-    font-size: 1.5rem;
-    color: var(--primary-color);
-    margin-right: 1rem;
-    min-width: 30px;
-  }
-  
-  .contactLink {
-    color: #b3b3b3;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  
-  .contactLink:hover {
-    color: #3b82f6;
-  }
-  
-  .contactText {
-    color: #b3b3b3;
-    line-height: 1.6;
-  }
-  
-  /* Social Links Container */
-  .socialLinks {
-    display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    padding: 0rem;
+    flex-wrap: wrap;
+    justify-content: center; /* Keeps everything centered on desktop too */
+    gap: 2rem 3rem;
   }
-  
-  /* Social Items */
-  .socialItem {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.8rem;
-    border-radius: 12px;
-    color: #b3b3b3;
-    text-decoration: none;
-    transition: all 0.3s ease-in-out;
-    min-width: 50px;
-    min-height: 50px;
-  }
-  
-  /* Hover Effect */
-  .socialItem:hover {
-    background: rgba(255, 255, 255, 0.15);
-    color: #ff9901;
-    transform: translateY(-3px);
-    box-shadow: 0px 0px 10px 2px rgba(255, 153, 1, 0.8);
-    text-shadow: 0px 0px 8px rgba(255, 153, 1, 1),
-      0px 0px 20px rgba(255, 153, 1, 0.6);
-  }
-  
-  /* Social Icons */
-  .socialIcon {
-    font-size: 1.8rem;
-    min-width: auto;
-    margin: 0;
-  }
+}
+
+/* Contact Items */
+.contactItem {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Content inside item aligned left */
+  gap: 1rem;
+  font-size: 1rem;
+  color: #b3b3b3;
+  transition: color 0.3s ease;
+  width: 100%;
+  max-width: 350px;
+  word-break: break-word;
+  text-align: left;
+}
+
+/* Icons */
+.contactIcon {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+/* Contact Links/Text */
+.contactLink,
+.contactText {
+  color: #b3b3b3;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contactLink:hover {
+  color: #3b82f6;
+}
+
+/* Social Links Container */
+.socialLinks {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+/* Social Item Styling */
+.socialItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  color: #b3b3b3;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: 50px;
+  height: 50px;
+}
+
+.socialItem:hover {
+  color: #ff9901;
+  transform: scale(1.1);
+  text-shadow: 0px 0px 8px rgba(255, 153, 1, 0.8);
+}
+
   
   .swiperContainer {
     padding: 0px;
