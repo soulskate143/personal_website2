@@ -236,7 +236,7 @@ export default function Projects() {
       >
         {projectsToDisplay.map((project, index) => (
           <SwiperSlide key={index} className={styles.cardSlide}>
-            <img
+            <Image
               src={project.images[0]}
               alt={project.title}
               className={styles.projectImage}
