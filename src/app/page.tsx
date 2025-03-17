@@ -10,7 +10,6 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import Header from "../components/header";
 import AboutSection from "../components/About";
-import FallingStars from "../components/FallingStars"
 
 
 
@@ -31,24 +30,6 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  const smoothScrollY = useSpring(parallaxY, {
-    stiffness: 100,
-    damping: 20,
-    mass: 1,
-  });
-
-  // Mouse-based parallax — also smoothed
-  const springMouseX = useSpring(mouseX * -0.02, {
-    stiffness: 100,
-    damping: 20,
-    mass: 1,
-  });
-
-  const springMouseY = useSpring(mouseY * -0.02, {
-    stiffness: 100,
-    damping: 20,
-    mass: 1,
-  });
 
   // Track Mouse Movement
   useEffect(() => {
