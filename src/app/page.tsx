@@ -33,7 +33,6 @@ export default function Home() {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMouseX(e.clientX - window.innerWidth / 2);
-      setMouseY(e.clientY - window.innerHeight / 2);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
