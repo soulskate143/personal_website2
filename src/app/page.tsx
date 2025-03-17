@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 import Header from "../components/header";
 import AboutSection from "../components/About";
 import FallingStars from "../components/FallingStars"
-
+z
 
 
 const words = ["Software", "Hardware", "IoT"];
