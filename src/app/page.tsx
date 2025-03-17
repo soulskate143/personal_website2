@@ -158,7 +158,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.5, delay: 1 }}
           >
-            Hello, I'm{" "}
+            Hello, I am{" "}
             <span className="text-amber-400 [text-shadow:0_0_20px_#60a5fa]">
               Marvin
             </span>
