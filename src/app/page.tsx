@@ -4,7 +4,6 @@ import {
   AnimatePresence,
   useScroll,
   useTransform,
-  useSpring,
 } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -17,7 +16,6 @@ const words = ["Software", "Hardware", "IoT"];
 
 export default function Home() {
   const [mouseX, setMouseX] = useState(0);
-  const [mouseY, setMouseY] = useState(0);
   const [index, setIndex] = useState(0);
   const { scrollY } = useScroll();
   const parallaxY = useTransform(scrollY, [0, 600], [0, -100]); // You can adjust range
@@ -45,7 +43,6 @@ export default function Home() {
   return (
     <main>
       <div className="relative w-full h-screen overflow-hidden bg-black text-white ">
-        <FallingStars />
         <Header />
         {/* Background Layer with Opposite Mouse Motion Effect */}
 
