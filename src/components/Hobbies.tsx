@@ -26,7 +26,7 @@ const Hobbies = () => {
     <section className="py-16 px-4 bg-transparent">
       <h2 className="text-4xl font-bold text-center mb-16 relative">
         <span className="relative inline-block">
-          Certificates
+          Hobbies
           <motion.span
             className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600"
             initial={{ width: 0 }}
