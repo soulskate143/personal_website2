@@ -17,7 +17,6 @@ import Lenis from "@studio-freight/lenis";
 import Projects from "../components/Projects";
 import Hobbies from "../components/Hobbies";
 import Contact from "../components/Contact";
-import Image from "next/image";
 
 const skills = [
   { name: "HTML", icon: <FaHtml5 className="text-orange-500 text-3xl" /> },
@@ -89,58 +88,55 @@ export default function AboutPage() {
         className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-500/10 via-purple-600/10 to-black blur-3xl opacity-50"
         style={{ y: parallaxY }}
       />
+
       <section className="min-h-screen w-full px-6 md:px-20 lg:px-32 pt-24 pb-36">
         {/* Header */}
         <motion.div
-  className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-4 md:gap-8 p-4 md:p-6"
-  initial={{ opacity: 0, y: 40 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.7 }}
-  viewport={{ once: true }}
->
-  {/* IMAGE SECTION */}
-  <div className="w-full md:w-[40%] md:mr-0 md:pl-40 flex justify-center md:justify-start">
-    <div className="w-full max-w-[280px] overflow-hidden rounded-xl shadow-lg border border-gray-700">
-      <Image
-        src="/images/logo2.png"
-        alt="About Me"
-        className="w-full h-auto object-cover"
-      />
-    </div>
-  </div>
-
-  {/* TEXT SECTION */}
-  <div className="w-full md:w-[60%] text-left md:mt-0 -mt-2">
-    <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white relative">
-      <span className="inline-block relative">
-        About <span className="text-amber-400 glow-text">Me</span>
-        <motion.span
-          className="absolute -bottom-2 left-0 h-1 w-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"
-          initial={{ width: 0 }}
-          whileInView={{ width: "100%" }}
-          transition={{ duration: 1 }}
+          className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-4 md:gap-8 p-4 md:p-6"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-        />
-      </span>
-    </h2>
-    <motion.p
-      className="text-base md:text-lg text-gray-300 leading-relaxed"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.2 }}
-      viewport={{ once: true }}
-    >
-      A developer passionate about merging the digital and physical worlds. I
-      specialize in architecting immersive web applications and scalable IoT
-      ecosystems, bridging the gap between elegant software interfaces and
-      intelligent hardware systems.
-    </motion.p>
-  </div>
-</motion.div>
+        >
+          {/* IMAGE SECTION */}
+          <div className="w-full md:w-[40%] md:mr-0 md:pl-40 flex justify-center md:justify-start">
+            <div className="w-full max-w-[280px] overflow-hidden rounded-xl shadow-lg border border-gray-700">
+              <img
+                src="/images/logo2.png"
+                alt="About Me"
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          </div>
 
-
-
-
+          {/* TEXT SECTION */}
+          <div className="w-full md:w-[60%] text-left md:mt-0 -mt-2">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white relative">
+              <span className="inline-block relative">
+                About <span className="text-amber-400 glow-text">Me</span>
+                <motion.span
+                  className="absolute -bottom-2 left-0 h-1 w-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "100%" }}
+                  transition={{ duration: 1 }}
+                  viewport={{ once: true }}
+                />
+              </span>
+            </h2>
+            <motion.p
+              className="text-base md:text-lg text-gray-300 leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              A developer passionate about merging the digital and physical
+              worlds. I specialize in architecting immersive web applications
+              and scalable IoT ecosystems, bridging the gap between elegant
+              software interfaces and intelligent hardware systems.
+            </motion.p>
+          </div>
+        </motion.div>
 
         {/* Skills */}
         <motion.section
@@ -165,18 +161,9 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4">
             {skills.map((skill, i) => (
-              <motion.div
+              <div
                 key={skill.name}
                 className="group relative flex flex-col items-center p-6 rounded-2xl bg-gray-900 hover:bg-gray-800/50 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.6,
-                  delay: i * 0.05,
-                  type: "spring",
-                  stiffness: 50,
-                }}
-                viewport={{ once: true, margin: "0px 0px -100px 0px" }}
               >
                 {/* Gradient Border */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/30 via-purple-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -201,58 +188,53 @@ export default function AboutPage() {
 
                 {/* Hover Indicator */}
                 <div className="absolute bottom-0 h-1 w-8 bg-gradient-to-r from-blue-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </motion.div>
+              </div>
             ))}
           </div>
         </motion.section>
 
         {/* Certificates */}
         <motion.section
-      className="mt-30 w-full max-w-4xl mx-auto"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7 }}
-      viewport={{ once: true }}
-    >
-      <h2 className="text-4xl font-bold text-center mb-16 relative">
-        <span className="relative inline-block">
-          Certificates
-          <motion.span
-            className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600"
-            initial={{ width: 0 }}
-            whileInView={{ width: "100%" }}
-            transition={{ duration: 1, delay: 0.2 }}
-            viewport={{ once: true }}
-          />
-        </span>
-      </h2>
+          className="mt-30 w-full max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-4xl font-bold text-center mb-16 relative">
+            <span className="relative inline-block">
+              Certificates
+              <motion.span
+                className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600"
+                initial={{ width: 0 }}
+                whileInView={{ width: "100%" }}
+                transition={{ duration: 1, delay: 0.2 }}
+                viewport={{ once: true }}
+              />
+            </span>
+          </h2>
 
-      <div className="flex justify-center flex-wrap gap-6">
-        {certificates.map((certificate, i) => (
-          <motion.a
-            key={certificate.name}
-            href={certificate.url}
-            className="testdome-certificate-stamp gold transform hover:scale-105 transition duration-300"
-            target="_blank"
-            rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.3, duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <span className="testdome-certificate-name">Marvin Toh</span>
-            <span className="testdome-certificate-test-name">
-              {certificate.name}
-            </span>
-            <span className="testdome-certificate-card-logo">
-              TestDome
-              <br />
-              Certificate
-            </span>
-          </motion.a>
-        ))}
-      </div>
-    </motion.section>
+          <div className="flex justify-center flex-wrap gap-6">
+            {certificates.map((certificate, i) => (
+              <a
+                key={certificate.name}
+                href={certificate.url}
+                className="testdome-certificate-stamp gold transform hover:scale-105 transition duration-300"
+                target="_blank"
+              >
+                <span className="testdome-certificate-name">Marvin Toh</span>
+                <span className="testdome-certificate-test-name">
+                  {certificate.name}
+                </span>
+                <span className="testdome-certificate-card-logo">
+                  TestDome
+                  <br />
+                  Certificate
+                </span>
+              </a>
+            ))}
+          </div>
+        </motion.section>
 
         <Projects />
         <Hobbies />
