@@ -19,7 +19,6 @@ import Hobbies from "../components/Hobbies";
 import Contact from "../components/Contact";
 import Image from "next/image";
 
-
 const skills = [
   { name: "HTML", icon: <FaHtml5 className="text-orange-500 text-3xl" /> },
   { name: "CSS", icon: <FaCss3Alt className="text-blue-500 text-3xl" /> },
@@ -106,7 +105,10 @@ export default function AboutPage() {
               <Image
                 src="/images/logo2.png"
                 alt="About Me"
+                width={500}
+                height={300} 
                 className="w-full h-auto object-cover"
+                priority
               />
             </div>
           </div>
