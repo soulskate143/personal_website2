@@ -165,19 +165,18 @@ export default function Projects() {
 
   return (
     <section id="projects" className={styles.projects}>
-      
-        <h2 className="text-4xl font-bold text-center mb-16 relative">
-          <span className="relative inline-block">
-            Projects
-            <motion.span
-              className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600"
-              initial={{ width: 0 }}
-              whileInView={{ width: "100%" }}
-              transition={{ duration: 1, delay: 0.2 }}
-              viewport={{ once: true }}
-            />
-          </span>
-        </h2>
+      <h2 className="text-4xl font-bold text-center mb-16 relative">
+        <span className="relative inline-block">
+          Projects
+          <motion.span
+            className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600"
+            initial={{ width: 0 }}
+            whileInView={{ width: "100%" }}
+            transition={{ duration: 1, delay: 0.2 }}
+            viewport={{ once: true }}
+          />
+        </span>
+      </h2>
 
       <div
         className={`${styles.toggleContainer} ${
@@ -208,15 +207,36 @@ export default function Projects() {
         breakpoints={{
           320: {
             slidesPerView: 1.5,
-            spaceBetween: 200,
+            spaceBetween: 20, // Reduced space between slides
+            coverflowEffect: {
+              rotate: 10, // Reduced rotation
+              stretch: 0, // No stretch
+              depth: 800, // Reduced depth
+              modifier: 1,
+              slideShadows: true,
+            },
           },
           640: {
             slidesPerView: 2,
-            spaceBetween: 10,
+            spaceBetween: 20,
+            coverflowEffect: {
+              rotate: 15,
+              stretch: 20,
+              depth: 1200,
+              modifier: 1,
+              slideShadows: true,
+            },
           },
           1024: {
             slidesPerView: 2.5,
             spaceBetween: 20,
+            coverflowEffect: {
+              rotate: 20,
+              stretch: 50,
+              depth: 2000,
+              modifier: 1,
+              slideShadows: true,
+            },
           },
         }}
         spaceBetween={10}
@@ -236,11 +256,20 @@ export default function Projects() {
       >
         {projectsToDisplay.map((project, index) => (
           <SwiperSlide key={index} className={styles.cardSlide}>
-            <Image
+            <img
               src={project.images[0]}
               alt={project.title}
               className={styles.projectImage}
               onClick={() => handleCardClick(index)}
+              style={{
+                width: "100%",
+                height: "auto",
+                // Add mobile-specific styling
+                "@media (maxWidth: 640px)": {
+                  maxWidth: "90vw",
+                  margin: "0 auto",
+                },
+              }}
             />
 
             {/* Content below the image */}
@@ -378,47 +407,49 @@ export default function Projects() {
               >
                 {selectedProject.images.map((image, index) => (
                   <SwiperSlide key={index}>
-  {image.endsWith(".mp4") ? (
-    // Video remains the same
-    <video
-      controls
-      style={{
-        width: "100%",
-        height: "350px",
-        maxHeight: "400px",
-        objectFit: "contain",
-        borderRadius: "8px",
-        backgroundColor: "#000",
-      }}
-    >
-      <source src={image} type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-  ) : (
-    // Changed image styling
-    <div style={{
-      width: "100%",
-      height: "400px", // Increased height
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "#f5f5f5", // Add background for letterboxing
-      borderRadius: "8px",
-    }}>
-      <img
-        src={image}
-        alt={`Slide ${index + 1}`}
-        style={{
-          maxWidth: "100%",
-          maxHeight: "100%",
-          objectFit: "contain",
-          borderRadius: "8px",
-          boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
-        }}
-      />
-    </div>
-  )}
-</SwiperSlide>
+                    {image.endsWith(".mp4") ? (
+                      // Video remains the same
+                      <video
+                        controls
+                        style={{
+                          width: "100%",
+                          height: "350px",
+                          maxHeight: "400px",
+                          objectFit: "contain",
+                          borderRadius: "8px",
+                          backgroundColor: "#000",
+                        }}
+                      >
+                        <source src={image} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    ) : (
+                      // Changed image styling
+                      <div
+                        style={{
+                          width: "100%",
+                          height: "400px", // Increased height
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          backgroundColor: "#f5f5f5", // Add background for letterboxing
+                          borderRadius: "8px",
+                        }}
+                      >
+                        <img
+                          src={image}
+                          alt={`Slide ${index + 1}`}
+                          style={{
+                            maxWidth: "100%",
+                            maxHeight: "100%",
+                            objectFit: "contain",
+                            borderRadius: "8px",
+                            boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
+                          }}
+                        />
+                      </div>
+                    )}
+                  </SwiperSlide>
                 ))}
               </Swiper>
             </>
