@@ -17,6 +17,8 @@ import Lenis from "@studio-freight/lenis";
 import Projects from "../components/Projects";
 import Hobbies from "../components/Hobbies";
 import Contact from "../components/Contact";
+import Image from "next/image";
+
 
 const skills = [
   { name: "HTML", icon: <FaHtml5 className="text-orange-500 text-3xl" /> },
@@ -101,7 +103,7 @@ export default function AboutPage() {
           {/* IMAGE SECTION */}
           <div className="w-full md:w-[40%] md:mr-0 md:pl-40 flex justify-center md:justify-start">
             <div className="w-full max-w-[280px] overflow-hidden rounded-xl shadow-lg border border-gray-700">
-              <img
+              <Image
                 src="/images/logo2.png"
                 alt="About Me"
                 className="w-full h-auto object-cover"
@@ -160,7 +162,7 @@ export default function AboutPage() {
           </h2>
 
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4">
-            {skills.map((skill, i) => (
+            {skills.map((skill) => (
               <div
                 key={skill.name}
                 className="group relative flex flex-col items-center p-6 rounded-2xl bg-gray-900 hover:bg-gray-800/50 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
@@ -215,7 +217,7 @@ export default function AboutPage() {
           </h2>
 
           <div className="flex justify-center flex-wrap gap-6">
-            {certificates.map((certificate, i) => (
+            {certificates.map((certificate) => (
               <a
                 key={certificate.name}
                 href={certificate.url}
