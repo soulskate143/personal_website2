@@ -27,7 +27,7 @@ const CustomCursor = () => {
           height: "15px",
           borderRadius: "50%",
           background: "rgba(255, 255, 255, 1)",
-          boxShadow: "0 0 50px 30px rgba(255, 255, 255, .7)", // Bigger and softer glow
+          boxShadow: "0 0 150px 70px rgba(255, 255, 255, 1)",
           transform: "translate(-50%, -50%)",
           transition: "transform 0.1s linear",
           
