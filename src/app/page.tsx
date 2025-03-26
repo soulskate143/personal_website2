@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import Header from "../components/header";
 import AboutSection from "../components/About";
+import CustomCursor from "../components/CustomCursor";
 
 
 
@@ -42,6 +43,7 @@ export default function Home() {
   return (
     <main>
       <div className="relative w-full h-screen overflow-hidden bg-black text-white ">
+        <CustomCursor />
         <Header />
         {/* Background Layer with Opposite Mouse Motion Effect */}
 
