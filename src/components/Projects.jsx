@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion} from "framer-motion";
 
 const softwareProjects = [
   {
