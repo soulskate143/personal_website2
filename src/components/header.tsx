@@ -102,7 +102,7 @@ export default function Header() {
           {/* Visit Counter */}
           <div className="flex items-center text-white px-4 py-2">
             <p className="text-lg text-yellow-400 mr-0.5">
-              {visitCount !== null ? visitCount : "Loading..."}
+              {visitCount !== null ? visitCount : "---"}
             </p>
             <p className="text-sm opacity-75">Portfolio Viewers</p>
           </div>
