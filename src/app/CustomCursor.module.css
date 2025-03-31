@@ -1,0 +1,26 @@
+.cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow: 0 0 30px 10px rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(2px);
+    mix-blend-mode: difference;
+    transition: background 0.3s ease;
+  }
+  
+  @media (max-width: 768px) {
+    .cursor {
+      display: none;
+    }
+  }
+  .cursor {
+    background: red !important;
+    z-index: 999999;
+  }
+  

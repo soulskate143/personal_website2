@@ -1,27 +1,42 @@
 "use client";
 
+import { useMemo } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
+// 🔹 Memoized Hobbies Data (prevents re-creation)
 const hobbies = [
-    { title: "Photography", type: "image", src: "/hobbies/photography.jpg" },
-    { title: "Music", type: "video", src: "/hobbies/music.mp4" },
-    { title: "Badminton", type: "video", src: "/hobbies/badminton.mp4" },
-    { title: "Riding", type: "video", src: "/hobbies/motor.mp4" },
-    { title: "Biking", type: "video", src: "/hobbies/bike.mp4" },
-    { title: "Hiking", type: "image", src: "/hobbies/hiking.jpg" },
-    { title: "Fishing", type: "image", src: "/hobbies/fishing.jpg" },
-    { title: "Motocross", type: "image", src: "/hobbies/motox.jpg" },
-    { title: "Pickleball", type: "video", src: "/hobbies/pickle.mp4" },
-    { title: "Running", type: "image", src: "/hobbies/running.jpg" },
-    { title: "Ice Skating", type: "video", src: "/hobbies/skate.mp4" },
-    { title: "Tennis", type: "video", src: "/hobbies/tennis.mp4" },
-    { title: "Traveling", type: "video", src: "/hobbies/travel.mp4" },
-    { title: "Videography", type: "video", src: "/hobbies/video.mp4" },
-    { title: "Coding", type: "video", src: "/hobbies/code.mp4" },
-  ];
+  { title: "Photography", type: "image", src: "/hobbies/photography.jpg" },
+  { title: "Music", type: "video", src: "/hobbies/music.mp4" },
+  { title: "Badminton", type: "video", src: "/hobbies/badminton.mp4" },
+  { title: "Riding", type: "video", src: "/hobbies/motor.mp4" },
+  { title: "Biking", type: "video", src: "/hobbies/bike.mp4" },
+  { title: "Hiking", type: "image", src: "/hobbies/hiking.jpg" },
+  { title: "Fishing", type: "image", src: "/hobbies/fishing.jpg" },
+  { title: "Motocross", type: "image", src: "/hobbies/motox.jpg" },
+  { title: "Pickleball", type: "video", src: "/hobbies/pickle.mp4" },
+  { title: "Running", type: "image", src: "/hobbies/running.jpg" },
+  { title: "Ice Skating", type: "video", src: "/hobbies/skate.mp4" },
+  { title: "Tennis", type: "video", src: "/hobbies/tennis.mp4" },
+  { title: "Traveling", type: "video", src: "/hobbies/travel.mp4" },
+  { title: "Videography", type: "video", src: "/hobbies/video.mp4" },
+  { title: "Coding", type: "video", src: "/hobbies/code.mp4" },
+];
+
+// 🔹 Framer Motion Variants for smoother animation
+const itemVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: (index: number) => ({
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.4, delay: index * 0.03, ease: "easeOut" },
+  }),
+  hover: { scale: 1.05, transition: { duration: 0.2 } },
+};
 
 const Hobbies = () => {
+  const memoizedHobbies = useMemo(() => hobbies, []);
+
   return (
     <section className="py-16 px-4 bg-transparent">
       <h2 className="text-4xl font-bold text-center mb-16 relative">
@@ -37,22 +52,18 @@ const Hobbies = () => {
         </span>
       </h2>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 max-w-6xl mx-auto">
-        {hobbies.map((hobby, index) => (
+      <motion.div
+        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4 max-w-6xl mx-auto"
+        initial="hidden"
+        animate="visible"
+        variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
+      >
+        {memoizedHobbies.map((hobby, index) => (
           <motion.div
-            key={index}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ 
-              duration: 0.4, 
-              delay: index * 0.05,
-              ease: "backOut"
-            }}
-            whileHover={{ 
-              scale: 1.05,
-              zIndex: 10,
-              transition: { duration: 0.3 }
-            }}
+            key={hobby.title} // 🔹 Use title as key to avoid duplicate key errors
+            custom={index}
+            variants={itemVariants}
+            whileHover="hover"
             className="relative w-full aspect-square overflow-hidden group rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
             {hobby.type === "image" ? (
@@ -62,6 +73,8 @@ const Hobbies = () => {
                 fill
                 className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                priority={false} // 🔹 Lazy load images
+                loading="lazy"
               />
             ) : (
               <video
@@ -71,6 +84,7 @@ const Hobbies = () => {
                 muted
                 loop
                 playsInline
+                poster="/hobbies/loading.jpg" // 🔹 Add placeholder while loading
               />
             )}
 
@@ -84,10 +98,9 @@ const Hobbies = () => {
                 {hobby.title}
               </motion.span>
             </div>
-
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };

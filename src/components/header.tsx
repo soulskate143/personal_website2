@@ -3,12 +3,56 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { doc, updateDoc, increment, getDoc } from "firebase/firestore";
+import { db } from "../components/firebase";
 
 export default function Header() {
   const [visible, setVisible] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
   const ticking = useRef(false);
+  const [visitCount, setVisitCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    const fetchVisitCount = async () => {
+      try {
+        const visitsRef = doc(db, "analytics", "visits");
+        const docSnap = await getDoc(visitsRef);
+
+        if (docSnap.exists()) {
+          setVisitCount(docSnap.data().count);
+        } else {
+          console.log("No visit count found, initializing...");
+          setVisitCount(1);
+          await updateDoc(visitsRef, { count: 1 });
+        }
+      } catch (error) {
+        console.error("Error fetching visit count:", error);
+      }
+    };
+
+    const updateVisitCount = async () => {
+      try {
+        const visitsRef = doc(db, "analytics", "visits");
+        await updateDoc(visitsRef, { count: increment(1) });
+
+        // Fetch the updated count after incrementing
+        const updatedSnap = await getDoc(visitsRef);
+        if (updatedSnap.exists()) {
+          setVisitCount(updatedSnap.data().count);
+        }
+      } catch (error) {
+        console.error("Error updating visit count:", error);
+      }
+    };
+
+    if (!sessionStorage.getItem("visitCounted")) {
+      updateVisitCount();
+      sessionStorage.setItem("visitCounted", "true");
+    } else {
+      fetchVisitCount();
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,8 +86,9 @@ export default function Header() {
       }`}
     >
       <nav className="flex justify-between items-center px-6 py-4 md:px-12">
-        {/* Branding */}
-        <div>
+        {/* Left Section: Logo & Visit Counter */}
+        <div className="flex items-center gap-0.09">
+          {/* Logo */}
           <Link href="/">
             <Image
               src="/images/mt.png"
@@ -53,6 +98,14 @@ export default function Header() {
               className="hover:scale-110 transition-transform duration-300 ease-in-out"
             />
           </Link>
+
+          {/* Visit Counter */}
+          <div className="flex items-center text-white px-4 py-2">
+            <p className="text-lg text-yellow-400 mr-0.5">
+              {visitCount !== null ? visitCount : "Loading..."}
+            </p>
+            <p className="text-sm opacity-75">Portfolio Viewers</p>
+          </div>
         </div>
 
         {/* Mobile Menu Button */}
@@ -67,11 +120,11 @@ export default function Header() {
         {/* Navigation Menu */}
         <ul
           className={`fixed md:static top-0 left-0 w-full md:flex md:space-x-8 md:items-center md:w-auto transition-all duration-300 ease-in-out md:translate-x-0 p-6 md:p-0 text-white md:text-black shadow-lg md:shadow-none rounded-md md:rounded-none 
-          ${
-            isMenuOpen
-              ? "backdrop-blur-lg bg-black/20 md:bg-transparent translate-x-0 flex flex-col items-center justify-center min-h-screen"
-              : "-translate-x-full md:translate-x-0"
-          }`}
+      ${
+        isMenuOpen
+          ? "backdrop-blur-lg bg-black/20 md:bg-transparent translate-x-0 flex flex-col items-center justify-center min-h-screen"
+          : "-translate-x-full md:translate-x-0"
+      }`}
         >
           {/* Close Button Inside Mobile Menu */}
           <button

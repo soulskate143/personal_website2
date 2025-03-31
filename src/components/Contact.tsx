@@ -14,8 +14,6 @@ const ContactSection = () => {
     <>
       <section id="contacts">
         <div className={styles.contactSection}>
-          
-
           <div className={styles.contactGrid}>
             {/* Contact Information */}
             <div className={styles.contactInfo}>
@@ -73,6 +71,11 @@ const ContactSection = () => {
           </div>
         </div>
       </section>
+
+      {/* Footer at the bottom */}
+      <footer className={styles.footer} >
+        <p>© 2025 Marvin Toh. All rights reserved.</p>
+      </footer>
     </>
   );
 };
