@@ -9,9 +9,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import Header from "../components/header";
 import AboutSection from "../components/About";
-import FallingStars from "../components/FallingStars"
-z
-
+import CustomCursor from "../components/CustomCursor";
 
 const words = ["Software", "Hardware", "IoT"];
 
@@ -35,7 +33,6 @@ export default function Home() {
     mass: 1,
   });
 
-  // Mouse-based parallax — also smoothed
   const springMouseX = useSpring(mouseX * -0.02, {
     stiffness: 100,
     damping: 20,
@@ -59,8 +56,8 @@ export default function Home() {
 
   return (
     <main>
-      <div className="relative w-full h-screen overflow-hidden bg-black text-white ">
-        <FallingStars />
+      <div className="relative w-full h-screen overflow-hidden bg-black text-white">
+        <CustomCursor />
         <Header />
 
         {/* Background Layer */}

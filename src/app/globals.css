@@ -24,3 +24,19 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+body, * {
+  cursor: none !important;
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2) rotate(360deg);
+    filter: blur(10px);
+  }
+}
+
