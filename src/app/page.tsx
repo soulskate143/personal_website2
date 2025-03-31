@@ -11,40 +11,26 @@ import Header from "../components/header";
 import AboutSection from "../components/About";
 import CustomCursor from "../components/CustomCursor";
 
+
+
 const words = ["Software", "Hardware", "IoT"];
 
 export default function Home() {
   const [mouseX, setMouseX] = useState(0);
   const [index, setIndex] = useState(0);
   const { scrollY } = useScroll();
-  const parallaxY = useTransform(scrollY, [0, 600], [0, -100]);
+  const parallaxY = useTransform(scrollY, [0, 600], [0, -100]); // You can adjust range
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % words.length);
-    }, 2000);
+    }, 2000); // Change word every 2 seconds
 
     return () => clearInterval(interval);
   }, []);
 
-  const smoothScrollY = useSpring(parallaxY, {
-    stiffness: 100,
-    damping: 20,
-    mass: 1,
-  });
 
-  const springMouseX = useSpring(mouseX * -0.02, {
-    stiffness: 100,
-    damping: 20,
-    mass: 1,
-  });
-
-  const springMouseY = useSpring(mouseY * -0.02, {
-    stiffness: 100,
-    damping: 20,
-    mass: 1,
-  });
-
+  // Track Mouse Movement
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMouseX(e.clientX - window.innerWidth / 2);
@@ -56,17 +42,17 @@ export default function Home() {
 
   return (
     <main>
-      <div className="relative w-full h-screen overflow-hidden bg-black text-white">
+      <div className="relative w-full h-screen overflow-hidden bg-black text-white ">
         <CustomCursor />
         <Header />
+        {/* Background Layer with Opposite Mouse Motion Effect */}
 
-        {/* Background Layer */}
         <motion.div
           className="fixed top-0 left-0 w-full h-full z-0"
           style={{
-            x: -mouseX * 0.02,
-            y: parallaxY,
-            scale: 1.1,
+            x: -mouseX * 0.02, // Moves in opposite direction of mouse
+            y: parallaxY, // scroll-based Y parallax only
+            scale: 1.1, // Slightly scale up to avoid black edges
           }}
           transition={{ type: "tween", ease: "easeOut", duration: 0.3 }}
         >
@@ -81,16 +67,15 @@ export default function Home() {
           />
         </motion.div>
 
-        {/* Foreground Content */}
+        {/* Foreground Layer with Motion */}
         <motion.div
           className="relative z-10 flex flex-col items-center justify-center h-screen text-center px-5 mt-10"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          {/* ... (rest of your existing JSX content remains the same) */}
           <div className="relative flex flex-col items-center gap-0 md:flex-row md:justify-center md:gap-5 mb-0 pb-0">
-            {/* Marvin PNG */}
+            {/* Marvin PNG - Moves to top on mobile */}
             <motion.div
               className="w-[200px] md:w-[450px] md:absolute md:left-[-30px] md:top-1/2 md:transform md:-translate-y-1/2"
               initial={{ opacity: 0, x: -50 }}
@@ -106,7 +91,7 @@ export default function Home() {
               />
             </motion.div>
 
-            {/* Profile Image */}
+            {/* Profile Image - Centered */}
             <motion.div
               className="rounded-full overflow-hidden border-4 border-white z-10 mt-[-60px] md:mt-0"
               initial={{ scale: 2.8 }}
@@ -122,7 +107,7 @@ export default function Home() {
               />
             </motion.div>
 
-            {/* Toh1 PNG */}
+            {/* Toh1 PNG - Moves to bottom on mobile */}
             <motion.div
               className="w-[200px] md:w-[450px] md:absolute md:right-[-120px] md:top-1/2 md:transform md:-translate-y-1/2 z-10 mt-[-55px] md:mt-0"
               initial={{ opacity: 0, x: 50 }}
@@ -140,6 +125,7 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-[-55px] md:mt-5">
+            {/* Static Sentence */}
             <motion.h1
               className="text-2xl md:text-5xl font-bold"
               initial={{ opacity: 0, y: 20 }}
@@ -149,6 +135,7 @@ export default function Home() {
               Building the future of
             </motion.h1>
 
+            {/* Changing Word Below */}
             <div className="relative h-12 mt-2 flex justify-center items-center">
               <AnimatePresence mode="wait">
                 <motion.span
@@ -178,7 +165,11 @@ export default function Home() {
           </motion.p>
         </motion.div>
       </div>
-      <AboutSection />
+      
+
+    <AboutSection />
+    
+   
     </main>
   );
 }
