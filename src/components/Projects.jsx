@@ -2,8 +2,8 @@
 import { useRef, useState } from "react";
 import styles from "../app/page.module.css";
 import Modal from "@mui/material/Modal";
-import { Box, IconButton, Typography, Link } from "@mui/material";
-import { IoClose } from "react-icons/io5";
+import { Box, IconButton, Typography, Link, Chip, Fade, Backdrop } from "@mui/material";
+import { IoClose, IoRocketOutline, IoCodeSlashOutline } from "react-icons/io5";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, EffectCoverflow } from "swiper/modules";
 import "swiper/css";
@@ -11,7 +11,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 import Image from "next/image";
-import { motion} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const softwareProjects = [
   {
@@ -36,9 +36,9 @@ const softwareProjects = [
       "/images/stars/13.png",
     ],
     languages: [{ name: "Next.js", logo: "/images/icons/nextjs.png" }],
+    tags: ["Web Platform", "Real-time", "Analytics"],
     web: "https://stars.avegabros.org",
   },
-
   {
     title: "Nayuta Inquiry",
     description:
@@ -55,6 +55,7 @@ const softwareProjects = [
       "/images/inquiry/7.jpg",
     ],
     languages: [{ name: "php", logo: "/images/icons/php.png" }],
+    tags: ["Automation", "CRM", "Dashboard"],
   },
   {
     title: "Ehome",
@@ -72,6 +73,7 @@ const softwareProjects = [
       "/images/ehome/7.jpg",
     ],
     languages: [{ name: "Kotlin", logo: "/images/icons/kotlin.png" }],
+    tags: ["IoT", "Mobile", "Smart Home"],
   },
 ];
 
@@ -91,6 +93,7 @@ const hardwareProjects = [
       "/images/gps/6.mp4",
     ],
     languages: [{ name: "Java", logo: "/images/icons/java.png" }],
+    tags: ["GPS", "Tracking", "IoT"],
   },
   {
     title: "Disaster",
@@ -105,8 +108,8 @@ const hardwareProjects = [
       "/images/disaster/4.jpg",
       "/images/disaster/5.jpg",
     ],
-    languages: [{ name: "Java", logo: "/images/icons/Java.png" }],
     languages: [{ name: "Java", logo: "/images/icons/java.png" }],
+    tags: ["Sensors", "Safety", "Alert System"],
   },
   {
     title: "Cloud Biometrics",
@@ -120,7 +123,8 @@ const hardwareProjects = [
       "/images/bio/3.mp4",
       "/images/bio/4.mp4",
     ],
-    languages: [{ name: "Java", logo: "/icons/Java.png" }],
+    languages: [{ name: "Java", logo: "/images/icons/java.png" }],
+    tags: ["Biometrics", "Security", "Cloud"],
   },
   {
     title: "IP Cam",
@@ -134,7 +138,8 @@ const hardwareProjects = [
       "/images/cam/3.jpg",
       "/images/cam/5.mp4",
     ],
-    languages: [{ name: "Java", logo: "/images/icons/Java.png" }],
+    languages: [{ name: "Java", logo: "/images/icons/java.png" }],
+    tags: ["Camera", "Streaming", "ESP32"],
   },
 ];
 
@@ -142,6 +147,7 @@ export default function Projects() {
   const [selectedCategory, setSelectedCategory] = useState("software");
   const [selectedProject, setSelectedProject] = useState(null);
   const [open, setOpen] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const projectsToDisplay =
     selectedCategory === "software" ? softwareProjects : hardwareProjects;
@@ -160,301 +166,578 @@ export default function Projects() {
 
   const handleClose = () => {
     setOpen(false);
-    setSelectedProject(null);
+    setTimeout(() => setSelectedProject(null), 300);
   };
 
   return (
-    <section id="projects" className={styles.projects}>
-      <h2 className="text-4xl font-bold text-center mb-16 relative">
-        <span className="relative inline-block">
-          Projects
-          <motion.span
-            className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600"
-            initial={{ width: 0 }}
-            whileInView={{ width: "100%" }}
-            transition={{ duration: 1, delay: 0.2 }}
-            viewport={{ once: true }}
-          />
-        </span>
-      </h2>
+    <section id="projects" className={styles.projects} style={{ padding: "80px 20px", position: "relative" }}>
+      {/* Header with Badge */}
+      <div className="text-center mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-600/10 border border-blue-500/20 backdrop-blur-sm mb-4"
+          style={{ display: "inline-flex" }}
+        >
+          <svg className="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clipRule="evenodd" />
+          </svg>
+          <span className="text-sm font-medium text-blue-400">
+            Featured Work
+          </span>
+        </motion.div>
 
-      <div
-        className={`${styles.toggleContainer} ${
-          selectedCategory === "hardware" ? styles.hardware : ""
-        }`}
-      >
-        <button
-          className={`${styles.toggleButton} ${
-            selectedCategory === "software" ? styles.active : ""
-          }`}
-          onClick={() => setSelectedCategory("software")}
-        >
-          Software
-        </button>
-        <button
-          className={`${styles.toggleButton} ${
-            selectedCategory === "hardware" ? styles.active : ""
-          }`}
-          onClick={() => setSelectedCategory("hardware")}
-        >
-          Hardware
-        </button>
+        <h2 className="text-4xl md:text-5xl font-bold mb-4 relative">
+          <span className="relative inline-block">
+            Projects Portfolio
+            <motion.span
+              className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"
+              initial={{ width: 0 }}
+              whileInView={{ width: "100%" }}
+              transition={{ duration: 1, delay: 0.2 }}
+              viewport={{ once: true }}
+              style={{ display: "block" }}
+            />
+          </span>
+        </h2>
+        <p className="text-gray-400 max-w-2xl mx-auto">
+          Innovative solutions bridging software and hardware - from web platforms to IoT systems
+        </p>
       </div>
 
-      <Swiper
-        ref={swiperRef}
-        modules={[Navigation, Pagination, EffectCoverflow]}
-        breakpoints={{
-          320: {
-            slidesPerView: 1.5,
-            spaceBetween: 20, // Reduced space between slides
-            coverflowEffect: {
-              rotate: 10, // Reduced rotation
-              stretch: 0, // No stretch
-              depth: 800, // Reduced depth
-              modifier: 1,
-              slideShadows: true,
-            },
-          },
-          640: {
-            slidesPerView: 2,
-            spaceBetween: 20,
-            coverflowEffect: {
-              rotate: 15,
-              stretch: 20,
-              depth: 1200,
-              modifier: 1,
-              slideShadows: true,
-            },
-          },
-          1024: {
-            slidesPerView: 2.5,
-            spaceBetween: 20,
-            coverflowEffect: {
-              rotate: 20,
-              stretch: 50,
-              depth: 2000,
-              modifier: 1,
-              slideShadows: true,
-            },
-          },
-        }}
-        spaceBetween={10}
-        slidesPerView={2.5}
-        navigation={false}
-        effect="coverflow"
-        centeredSlides={true}
-        coverflowEffect={{
-          rotate: 20,
-          stretch: 50,
-          depth: 2000,
-          modifier: 1,
-          slideShadows: true,
-        }}
-        onSwiper={(swiper) => (swiperRef.current = swiper)}
-        className={styles.swiperContainer}
+      {/* Enhanced Toggle Buttons */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+        style={{ display: "flex", justifyContent: "center", marginBottom: "4rem" }}
       >
-        {projectsToDisplay.map((project, index) => (
-          <SwiperSlide key={index} className={styles.cardSlide}>
-            <img
-              src={project.images[0]}
-              alt={project.title}
-              className={styles.projectImage}
-              onClick={() => handleCardClick(index)}
-              style={{
-                width: "100%",
-                height: "auto",
-                // Add mobile-specific styling
-                "@media (maxWidth: 640px)": {
-                  maxWidth: "90vw",
-                  margin: "0 auto",
-                },
-              }}
-            />
+        <div style={{
+          position: "relative",
+          display: "inline-flex",
+          background: "rgba(255, 255, 255, 0.05)",
+          backdropFilter: "blur(10px)",
+          borderRadius: "50px",
+          padding: "6px",
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
+        }}>
+          {/* Sliding Background */}
+          <motion.div
+            animate={{
+              x: selectedCategory === "software" ? 0 : "100%",
+            }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            style={{
+              position: "absolute",
+              top: "6px",
+              left: "6px",
+              width: "calc(50% - 6px)",
+              height: "calc(100% - 12px)",
+              background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+              borderRadius: "50px",
+              boxShadow: "0 4px 12px rgba(102, 126, 234, 0.4)",
+            }}
+          />
+          
+          <button
+            onClick={() => setSelectedCategory("software")}
+            style={{
+              position: "relative",
+              padding: "12px 32px",
+              border: "none",
+              background: "transparent",
+              color: selectedCategory === "software" ? "#fff" : "#94a3b8",
+              fontWeight: 600,
+              fontSize: "16px",
+              cursor: "pointer",
+              transition: "color 0.3s",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              zIndex: 1,
+            }}
+          >
+            <IoCodeSlashOutline size={20} />
+            Software
+          </button>
+          
+          <button
+            onClick={() => setSelectedCategory("hardware")}
+            style={{
+              position: "relative",
+              padding: "12px 32px",
+              border: "none",
+              background: "transparent",
+              color: selectedCategory === "hardware" ? "#fff" : "#94a3b8",
+              fontWeight: 600,
+              fontSize: "16px",
+              cursor: "pointer",
+              transition: "color 0.3s",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              zIndex: 1,
+            }}
+          >
+            <IoRocketOutline size={20} />
+            Hardware
+          </button>
+        </div>
+      </motion.div>
 
-            {/* Content below the image */}
-            <div className={styles.projectText}>
-              <h3>{project.title}</h3>
-              <p>{project.description}</p>
-              <button
-                className={styles.projectLink}
-                onClick={() => handleOpen(project)}
-              >
-                <span>Visit Project</span>
-              </button>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {/* Enhanced Swiper */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={selectedCategory}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.4 }}
+        >
+          <Swiper
+            ref={swiperRef}
+            modules={[Navigation, Pagination, EffectCoverflow]}
+            breakpoints={{
+              320: {
+                slidesPerView: 1.2,
+                spaceBetween: 30,
+              },
+              640: {
+                slidesPerView: 1.8,
+                spaceBetween: 40,
+              },
+              1024: {
+                slidesPerView: 2.5,
+                spaceBetween: 50,
+              },
+            }}
+            navigation={false}
+            effect="coverflow"
+            centeredSlides={true}
+            coverflowEffect={{
+              rotate: 15,
+              stretch: 30,
+              depth: 150,
+              modifier: 2,
+              slideShadows: true,
+            }}
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
+            className={styles.swiperContainer}
+            style={{ padding: "60px 0 80px" }}
+          >
+            {projectsToDisplay.map((project, index) => (
+              <SwiperSlide key={index} className={styles.cardSlide}>
+                <div
+                  style={{
+                    cursor: "pointer",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "24px",
+                  }}
+                  onClick={() => handleOpen(project)}
+                >
+                  {/* Floating Mockup Image with Tags */}
+                  <motion.div
+                    onHoverStart={() => setHoveredIndex(index)}
+                    onHoverEnd={() => setHoveredIndex(null)}
+                    whileHover={{ y: -12, scale: 1.02 }}
+                    style={{
+                      position: "relative",
+                      width: "100%",
+                      transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                    }}
+                  >
+                    {/* Technology Tags Overlay */}
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      style={{
+                        position: "absolute",
+                        top: "20px",
+                        left: "20px",
+                        display: "flex",
+                        gap: "8px",
+                        flexWrap: "wrap",
+                        zIndex: 2,
+                      }}
+                    >
+                      {project.tags?.slice(0, 2).map((tag, i) => (
+                        <span
+                          key={i}
+                          style={{
+                            padding: "8px 16px",
+                            background: "rgba(255, 255, 255, 0.95)",
+                            backdropFilter: "blur(10px)",
+                            borderRadius: "24px",
+                            fontSize: "13px",
+                            fontWeight: 700,
+                            color: "#667eea",
+                            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+                            border: "1px solid rgba(102, 126, 234, 0.2)",
+                          }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </motion.div>
 
-      {/* Modal for Project Details */}
+                    {/* Mockup Image */}
+                    <img
+                      src={project.images[0]}
+                      alt={project.title}
+                      className={styles.projectImage}
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        display: "block",
+                        filter: hoveredIndex === index 
+                          ? "drop-shadow(0 25px 50px rgba(102, 126, 234, 0.35))" 
+                          : "drop-shadow(0 15px 35px rgba(0, 0, 0, 0.2))",
+                        transition: "filter 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                      }}
+                    />
+                  </motion.div>
+
+                  {/* Content Card Below Image */}
+                  <motion.div
+                    whileHover={{ y: -4 }}
+                    style={{
+                      background: "rgba(255, 255, 255, 0.03)",
+                      backdropFilter: "blur(20px)",
+                      borderRadius: "24px",
+                      padding: "24px",
+                      boxShadow: hoveredIndex === index 
+                        ? "0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(102, 126, 234, 0.3)"
+                        : "0 10px 30px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05)",
+                      transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                    }}
+                  >
+                    <h3 style={{
+                      fontSize: "26px",
+                      fontWeight: 700,
+                      marginBottom: "12px",
+                      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}>
+                      {project.title}
+                    </h3>
+                    
+                    <p style={{
+                      fontSize: "15px",
+                      color: "#94a3b8",
+                      lineHeight: "1.7",
+                      marginBottom: "20px",
+                    }}>
+                      {project.description}
+                    </p>
+
+                    {/* Languages and CTA */}
+                    <div style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      paddingTop: "16px",
+                      borderTop: "1px solid rgba(255, 255, 255, 0.05)",
+                    }}>
+                      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                        {project.languages?.map((language, i) => (
+                          <div
+                            key={i}
+                            style={{
+                              width: "32px",
+                              height: "32px",
+                              position: "relative",
+                              borderRadius: "8px",
+                              padding: "6px",
+                              background: "rgba(102, 126, 234, 0.1)",
+                              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                            }}
+                          >
+                            <Image
+                              src={language.logo}
+                              alt={language.name}
+                              layout="fill"
+                              objectFit="contain"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                      
+                      <motion.span
+                        style={{
+                          fontSize: "15px",
+                          fontWeight: 700,
+                          color: "#667eea",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "6px",
+                        }}
+                        whileHover={{ x: 4 }}
+                      >
+                        View Details →
+                      </motion.span>
+                    </div>
+                  </motion.div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Enhanced Modal (same as before) */}
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="project-modal-title"
-        aria-describedby="project-modal-description"
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+          sx: {
+            backdropFilter: "blur(8px)",
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+          },
+        }}
       >
-        <Box
-          sx={{
-            width: { xs: "95%", sm: "80%", md: "60%" },
-            maxWidth: "800px",
-            margin: "auto",
-            backgroundColor: "#fff",
-            padding: { xs: "16px", sm: "24px", md: "32px" },
-            borderRadius: "12px",
-            marginTop: "5%",
-            position: "relative",
-            boxShadow: "0px 15px 35px rgba(0, 0, 0, 0.3)",
-          }}
-        >
-          {/* Close Button */}
-          <IconButton
-            onClick={handleClose}
+        <Fade in={open}>
+          <Box
             sx={{
               position: "absolute",
-              top: 16,
-              right: 16,
-              color: "#333",
-              transition: "0.3s",
-              "&:hover": { color: "#ff5722" },
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: { xs: "95%", sm: "85%", md: "70%", lg: "60%" },
+              maxWidth: "900px",
+              maxHeight: "90vh",
+              overflowY: "auto",
+              background: "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%)",
+              backdropFilter: "blur(20px)",
+              padding: { xs: "24px", sm: "32px", md: "40px" },
+              borderRadius: "24px",
+              boxShadow: "0 25px 80px rgba(0, 0, 0, 0.3)",
+              border: "1px solid rgba(255, 255, 255, 0.3)",
+              outline: "none",
+              "&::-webkit-scrollbar": {
+                width: "8px",
+              },
+              "&::-webkit-scrollbar-track": {
+                background: "transparent",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                background: "rgba(102, 126, 234, 0.3)",
+                borderRadius: "4px",
+              },
             }}
           >
-            <IoClose size={28} />
-          </IconButton>
+            <IconButton
+              onClick={handleClose}
+              sx={{
+                position: "absolute",
+                top: { xs: 16, sm: 20 },
+                right: { xs: 16, sm: 20 },
+                background: "rgba(255, 255, 255, 0.9)",
+                backdropFilter: "blur(10px)",
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+                transition: "all 0.3s",
+                zIndex: 10,
+                "&:hover": {
+                  background: "#fee",
+                  transform: "rotate(90deg)",
+                  boxShadow: "0 6px 16px rgba(255, 0, 0, 0.2)",
+                },
+              }}
+            >
+              <IoClose size={24} color="#333" />
+            </IconButton>
 
-          {/* Modal Content */}
-          {selectedProject && (
-            <>
-              <Typography
-                id="project-modal-title"
-                variant="h5"
-                fontWeight="bold"
-                textAlign="center"
-                gutterBottom
+            {selectedProject && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
               >
-                {selectedProject.title}
-              </Typography>
-              <Typography
-                id="project-modal-description"
-                variant="body1"
-                textAlign="center"
-                color="text.secondary"
-                sx={{ marginBottom: "16px" }}
-              >
-                {selectedProject.description2}
-              </Typography>
+                <Typography
+                  variant="h4"
+                  fontWeight="bold"
+                  textAlign="center"
+                  sx={{
+                    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                    marginBottom: "16px",
+                  }}
+                >
+                  {selectedProject.title}
+                </Typography>
 
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 2,
-                  marginBottom: 3,
-                }}
-              >
-                {/* "Language Use:" Text */}
-                <Typography variant="h6">Language Use:</Typography>
+                <Typography
+                  variant="body1"
+                  textAlign="center"
+                  sx={{
+                    color: "#64748b",
+                    marginBottom: "32px",
+                    lineHeight: 1.8,
+                    maxWidth: "700px",
+                    margin: "0 auto 32px",
+                  }}
+                >
+                  {selectedProject.description2}
+                </Typography>
 
-                {/* Logos of Used Programming Languages */}
+                <Box sx={{ display: "flex", justifyContent: "center", gap: 1, flexWrap: "wrap", marginBottom: 3 }}>
+                  {selectedProject.tags?.map((tag, i) => (
+                    <Chip
+                      key={i}
+                      label={tag}
+                      size="small"
+                      sx={{
+                        background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
+                        color: "#667eea",
+                        fontWeight: 600,
+                        border: "1px solid rgba(102, 126, 234, 0.2)",
+                      }}
+                    />
+                  ))}
+                </Box>
+
                 <Box
                   sx={{
                     display: "flex",
                     alignItems: "center",
-                    gap: 1,
+                    justifyContent: "center",
+                    gap: 3,
+                    marginBottom: 4,
+                    padding: "20px",
+                    background: "rgba(102, 126, 234, 0.05)",
+                    borderRadius: "16px",
+                    flexWrap: "wrap",
                   }}
                 >
-                  {selectedProject.languages?.map((language, index) => (
-                    <Box
-                      key={index}
-                      sx={{ width: 40, height: 40, position: "relative" }}
+                  <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+                    <Typography variant="body2" fontWeight="600" color="#64748b">
+                      Built with:
+                    </Typography>
+                    {selectedProject.languages?.map((language, index) => (
+                      <Box
+                        key={index}
+                        sx={{
+                          width: 32,
+                          height: 32,
+                          position: "relative",
+                          background: "#fff",
+                          borderRadius: "8px",
+                          padding: "6px",
+                          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.08)",
+                        }}
+                      >
+                        <Image
+                          src={language.logo}
+                          alt={language.name}
+                          layout="fill"
+                          objectFit="contain"
+                        />
+                      </Box>
+                    ))}
+                  </Box>
+
+                  {selectedProject.web && (
+                    <Link
+                      href={selectedProject.web}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      underline="none"
+                      sx={{
+                        padding: "10px 24px",
+                        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                        color: "#fff",
+                        borderRadius: "50px",
+                        fontWeight: 600,
+                        fontSize: "14px",
+                        transition: "all 0.3s",
+                        boxShadow: "0 4px 12px rgba(102, 126, 234, 0.3)",
+                        "&:hover": {
+                          transform: "translateY(-2px)",
+                          boxShadow: "0 6px 20px rgba(102, 126, 234, 0.4)",
+                        },
+                      }}
                     >
-                      <Image
-                        src={language.logo}
-                        alt={language.name}
-                        layout="fill"
-                        objectFit="contain"
-                      />
-                    </Box>
-                  ))}
+                      Visit Website →
+                    </Link>
+                  )}
                 </Box>
 
-                {/* Website Link */}
-                {selectedProject.web && (
-                  <Link
-                    href={selectedProject.web}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    underline="hover"
-                    sx={{ fontWeight: "bold", fontSize: "1rem" }}
+                <Box
+                  sx={{
+                    borderRadius: "16px",
+                    overflow: "hidden",
+                    boxShadow: "0 10px 40px rgba(0, 0, 0, 0.1)",
+                  }}
+                >
+                  <Swiper
+                    modules={[Pagination, Navigation]}
+                    spaceBetween={20}
+                    slidesPerView={1}
+                    navigation
+                    pagination={{ clickable: true }}
+                    loop
+                    style={{ borderRadius: "16px" }}
                   >
-                    Visit Website
-                  </Link>
-                )}
-              </Box>
-
-              {/* Swiper Carousel */}
-              <Swiper
-                modules={[Pagination, Navigation]}
-                spaceBetween={20}
-                slidesPerView={1}
-                navigation
-                pagination={{ clickable: true }}
-                loop
-                autoplay={{ delay: 3000 }}
-                className={styles.swiperContainer}
-                style={{ borderRadius: "8px", overflow: "hidden" }}
-              >
-                {selectedProject.images.map((image, index) => (
-                  <SwiperSlide key={index}>
-                    {image.endsWith(".mp4") ? (
-                      // Video remains the same
-                      <video
-                        controls
-                        style={{
-                          width: "100%",
-                          height: "350px",
-                          maxHeight: "400px",
-                          objectFit: "contain",
-                          borderRadius: "8px",
-                          backgroundColor: "#000",
-                        }}
-                      >
-                        <source src={image} type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    ) : (
-                      // Changed image styling
-                      <div
-                        style={{
-                          width: "100%",
-                          height: "400px", // Increased height
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          backgroundColor: "#f5f5f5", // Add background for letterboxing
-                          borderRadius: "8px",
-                        }}
-                      >
-                        <img
-                          src={image}
-                          alt={`Slide ${index + 1}`}
-                          style={{
-                            maxWidth: "100%",
-                            maxHeight: "100%",
-                            objectFit: "contain",
-                            borderRadius: "8px",
-                            boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
-                          }}
-                        />
-                      </div>
-                    )}
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </>
-          )}
-        </Box>
+                    {selectedProject.images.map((image, index) => (
+                      <SwiperSlide key={index}>
+                        {image.endsWith(".mp4") ? (
+                          <video
+                            controls
+                            style={{
+                              width: "100%",
+                              height: "450px",
+                              objectFit: "contain",
+                              borderRadius: "16px",
+                              backgroundColor: "#000",
+                            }}
+                          >
+                            <source src={image} type="video/mp4" />
+                            Your browser does not support the video tag.
+                          </video>
+                        ) : (
+                          <div
+                            style={{
+                              width: "100%",
+                              height: "450px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              background: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
+                              borderRadius: "16px",
+                            }}
+                          >
+                            <img
+                              src={image}
+                              alt={`Slide ${index + 1}`}
+                              style={{
+                                maxWidth: "100%",
+                                maxHeight: "100%",
+                                objectFit: "contain",
+                                borderRadius: "12px",
+                              }}
+                            />
+                          </div>
+                        )}
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </Box>
+              </motion.div>
+            )}
+          </Box>
+        </Fade>
       </Modal>
     </section>
   );
