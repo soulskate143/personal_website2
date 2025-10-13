@@ -73,7 +73,7 @@ const ContactSection = () => {
           >
             <FiSend className="w-4 h-4 text-green-400" />
             <span className="text-sm font-medium text-green-400">
-              Let's Connect
+              Let&apos;s Connect
             </span>
           </motion.div>
 
