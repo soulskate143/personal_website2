@@ -7,7 +7,6 @@ import {
   FiMapPin,
   FiFacebook,
   FiInstagram,
-  FiGithub,
   FiLinkedin,
   FiSend,
 } from "react-icons/fi";

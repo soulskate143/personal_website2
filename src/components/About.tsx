@@ -11,7 +11,6 @@ import {
   FaPhp,
   FaNodeJs,
   FaAws,
-  FaFigma,
   FaMicrochip,
   FaFileWord,
   FaVideo,
@@ -32,7 +31,6 @@ import {
 import { TbCircuitResistor } from "react-icons/tb";
 import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-// @ts-ignore
 import Lenis from "@studio-freight/lenis";
 import Projects from "../components/Projects";
 import Hobbies from "../components/Hobbies";

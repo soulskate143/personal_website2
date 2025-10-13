@@ -100,7 +100,7 @@ const Hobbies = () => {
           </span>
         </h2>
         <p className="text-gray-400 max-w-2xl mx-auto">
-          When I'm not building software, you'll find me staying active and exploring new adventures
+          When I&apos;m not building software, you&apos;ll find me staying active and exploring new adventures
         </p>
       </div>
 
