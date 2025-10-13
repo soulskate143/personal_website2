@@ -7,11 +7,9 @@ import {
   FiMapPin,
   FiFacebook,
   FiInstagram,
-  FiLinkedin,
   FiSend,
 } from "react-icons/fi";
 import { motion } from "framer-motion";
-import styles from "../app/page.module.css";
 
 const contactInfo = [
   {
@@ -93,7 +91,7 @@ const ContactSection = () => {
             </span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Have a project in mind or want to collaborate? Feel free to reach out - I'm always open to discussing new opportunities
+            Have a project in mind or want to collaborate? Feel free to reach out - I&apos;m always open to discussing new opportunities
           </p>
         </div>
 
@@ -268,7 +266,7 @@ const ContactSection = () => {
                     Ready to Start a Project?
                   </h3>
                   <p className="text-gray-300 mb-6">
-                    Let's discuss how we can work together to bring your ideas to life
+                    Let&apos;s discuss how we can work together to bring your ideas to life
                   </p>
                   <motion.a
                     href="mailto:soulskate143@gmail.com"
