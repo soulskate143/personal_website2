@@ -61,7 +61,7 @@ const softwareProjects = [
     web: "https://stars.avegabros.org",
   },
   {
-    title: "Bidding",
+    title: "Master 360 Bidding",
     description:
       "A digital bidding platform for property and asset auctions, featuring real-time updates and secure transactions.",
     description2:
@@ -87,7 +87,7 @@ const softwareProjects = [
     web: undefined,
   },
   {
-    title: "Titling",
+    title: "Digital Titling and Registration",
     description:
       "A digital titling management system for property documentation and verification.",
     description2:
