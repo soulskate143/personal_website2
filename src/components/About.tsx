@@ -10,7 +10,6 @@ import {
   FaDatabase,
   FaPhp,
   FaNodeJs,
-  FaAws,
   FaMicrochip,
   FaFileWord,
   FaVideo,
