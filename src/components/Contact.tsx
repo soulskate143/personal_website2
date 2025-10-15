@@ -327,24 +327,6 @@ const ContactSection = () => {
                 Contact
               </motion.a>
             </div>
-
-            {/* Built With Love */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              className="flex items-center gap-2 text-sm text-gray-400"
-            >
-              <span>Built with</span>
-              <motion.span
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 1, repeat: Infinity }}
-                className="text-red-500"
-              >
-                ♥
-              </motion.span>
-              <span>using Next.js</span>
-            </motion.div>
           </motion.div>
         </div>
       </footer>

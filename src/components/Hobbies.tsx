@@ -272,28 +272,6 @@ const Hobbies = () => {
         viewport={{ once: true }}
         className="mt-16 max-w-4xl mx-auto"
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { label: "Total Hobbies", value: hobbies.length, icon: "🎯" },
-            { label: "Sports", value: hobbies.filter(h => h.category === "Sports").length, icon: "⚽" },
-            { label: "Adventures", value: hobbies.filter(h => h.category === "Adventure").length, icon: "🏔️" },
-            { label: "Creative", value: hobbies.filter(h => h.category === "Creative").length, icon: "🎨" },
-          ].map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: 0.4 + index * 0.05 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -4 }}
-              className="bg-gradient-to-br from-gray-900 to-gray-800/50 rounded-xl p-6 border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300 text-center"
-            >
-              <div className="text-3xl mb-2">{stat.icon}</div>
-              <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
-              <div className="text-sm text-gray-400">{stat.label}</div>
-            </motion.div>
-          ))}
-        </div>
       </motion.div>
     </section>
   );

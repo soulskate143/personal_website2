@@ -26,7 +26,8 @@ import {
   SiAutocad,
   SiMiro,
   SiAdobe,
-  SiFigma
+  SiFigma,
+  SiDocker
 } from "react-icons/si";
 import { TbCircuitResistor } from "react-icons/tb";
 import { useEffect, useRef } from "react";
@@ -63,11 +64,11 @@ const techCategories = [
   },
   {
     title: "Cloud & Infrastructure",
-    icon: <FaAws className="text-orange-400" />,
-    color: "from-orange-500 to-amber-500",
+    icon: <SiGooglecloud className="text-blue-400" />,
+    color: "from-blue-500 to-cyan-500",
     skills: [
-      { name: "AWS", icon: <FaAws className="text-orange-400 text-3xl" />, subtitle: "EC2, LightSail, Route53" },
       { name: "GCP", icon: <SiGooglecloud className="text-blue-400 text-3xl" />, subtitle: "Google Cloud Platform" },
+      { name: "Docker", icon: <SiDocker className="text-blue-500 text-3xl" />, subtitle: "Containerization" },
     ],
   },
   {
