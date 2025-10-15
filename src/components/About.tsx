@@ -116,7 +116,7 @@ const certificates = [
   {
     name: "First Aid & Basic Life Support",
     type: "image",
-    src: "/images/cert.jpg",
+    src: "/images/cert.png",
   },
 ];
 

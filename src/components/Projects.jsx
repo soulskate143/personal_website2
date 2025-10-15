@@ -4,6 +4,21 @@ import styles from "../app/page.module.css";
 import Modal from "@mui/material/Modal";
 import { Box, IconButton, Typography, Link, Chip, Fade, Backdrop } from "@mui/material";
 import { IoClose, IoRocketOutline, IoCodeSlashOutline } from "react-icons/io5";
+import { 
+  SiNextdotjs, 
+  SiMysql, 
+  SiPostgresql, 
+  SiMariadb, 
+  SiFirebase, 
+  SiRedis,
+  SiGooglecloud,
+  SiAutocad,
+  SiMiro,
+  SiAdobe,
+  SiFigma,
+  SiDocker
+} from "react-icons/si";
+import { FaReact, FaPhp } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, EffectCoverflow } from "swiper/modules";
 import "swiper/css";
@@ -35,9 +50,71 @@ const softwareProjects = [
       "/images/stars/12.png",
       "/images/stars/13.png",
     ],
-    languages: [{ name: "Next.js", logo: "/images/icons/nextjs.png" }],
+    languages: [
+      { name: "Next.js", logo: "/images/icons/nextjs.png" },
+  { name: "Redis", icon: <SiRedis style={{ color: '#d82c20', fontSize: 28 }} /> },
+  { name: "Firebase", icon: <SiFirebase style={{ color: '#ffcb2b', fontSize: 28 }} /> },
+  { name: "MariaDB", icon: <SiMariadb style={{ color: '#003545', fontSize: 28 }} /> },
+      { name: "PHP", logo: "/images/icons/php.png" }
+    ],
     tags: ["Web Platform", "Real-time", "Analytics"],
     web: "https://stars.avegabros.org",
+  },
+  {
+    title: "Bidding",
+    description:
+      "A digital bidding platform for property and asset auctions, featuring real-time updates and secure transactions.",
+    description2:
+      "An advanced web application designed for property and asset bidding, enabling users to participate in auctions, track bids, and manage transactions securely. The platform provides a seamless experience with real-time notifications and transparent processes.",
+    images: [
+      "/images/bidding/image (1).png",
+      "/images/bidding/image (2).png",
+      "/images/bidding/image (3).png",
+      "/images/bidding/image (4).png",
+      "/images/bidding/image (5).png",
+      "/images/bidding/image (6).png",
+      "/images/bidding/image (7).png",
+      "/images/bidding/image.png",
+    ],
+    languages: [
+      { name: "React", icon: <FaReact style={{ color: '#61dafb', fontSize: 28 }} /> },
+      { name: "PHP (Laravel)", icon: <FaPhp style={{ color: '#4F5B93', fontSize: 28 }} /> },
+      { name: "Postgres", icon: <SiPostgresql style={{ color: '#336791', fontSize: 28 }} /> },
+      { name: "Redis", icon: <SiRedis style={{ color: '#d82c20', fontSize: 28 }} /> },
+      { name: "Docker", icon: <SiDocker style={{ color: '#2496ed', fontSize: 28 }} /> }
+    ],
+    tags: ["Bidding", "Auction", "Web Platform"],
+    web: undefined,
+  },
+  {
+    title: "Titling",
+    description:
+      "A digital titling management system for property documentation and verification.",
+    description2:
+      "A robust web solution for managing property titles, documentation, and verification processes. The platform streamlines title transfers, document uploads, and compliance checks, ensuring secure and efficient property management.",
+    images: [
+      "/images/titling/stars_laptop.png",
+      "/images/titling/image (1).png",
+      "/images/titling/image (2).png",
+      "/images/titling/image (3).png",
+      "/images/titling/image (4).png",
+      "/images/titling/image (5).png",
+      "/images/titling/image (6).png",
+      "/images/titling/image (7).png",
+      "/images/titling/image (8).png",
+      "/images/titling/image (9).png",
+      "/images/titling/image (10).png",
+      "/images/titling/image.png",
+    ],
+    languages: [
+      { name: "React", icon: <FaReact style={{ color: '#61dafb', fontSize: 28 }} /> },
+      { name: "PHP (Laravel)", icon: <FaPhp style={{ color: '#4F5B93', fontSize: 28 }} /> },
+      { name: "Postgres", icon: <SiPostgresql style={{ color: '#336791', fontSize: 28 }} /> },
+      { name: "Redis", icon: <SiRedis style={{ color: '#d82c20', fontSize: 28 }} /> },
+      { name: "Docker", icon: <SiDocker style={{ color: '#2496ed', fontSize: 28 }} /> }
+    ],
+    tags: ["Titling", "Property", "Web Platform"],
+    web: undefined,
   },
   {
     title: "Nayuta Inquiry",
@@ -54,7 +131,11 @@ const softwareProjects = [
       "/images/inquiry/6.jpg",
       "/images/inquiry/7.jpg",
     ],
-    languages: [{ name: "php", logo: "/images/icons/php.png" }],
+    languages: [
+      { name: "PHP", logo: "/images/icons/php.png" },
+      { name: "MySQL", icon: <SiMysql style={{ color: '#00758f', fontSize: 28 }} /> },
+      { name: "Redis", icon: <SiRedis style={{ color: '#d82c20', fontSize: 28 }} /> }
+    ],
     tags: ["Automation", "CRM", "Dashboard"],
   },
   {
@@ -72,7 +153,11 @@ const softwareProjects = [
       "/images/ehome/6.jpg",
       "/images/ehome/7.jpg",
     ],
-    languages: [{ name: "Kotlin", logo: "/images/icons/kotlin.png" }],
+    languages: [
+      { name: "Kotlin", logo: "/images/icons/kotlin.png" },
+      { name: "Firebase", icon: <SiFirebase style={{ color: '#ffcb2b', fontSize: 28 }} /> },
+      { name: "MySQL", icon: <SiMysql style={{ color: '#00758f', fontSize: 28 }} /> }
+    ],
     tags: ["IoT", "Mobile", "Smart Home"],
   },
 ];
@@ -458,14 +543,41 @@ export default function Projects() {
                               padding: "6px",
                               background: "rgba(102, 126, 234, 0.1)",
                               boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center"
                             }}
                           >
-                            <Image
-                              src={language.logo}
-                              alt={language.name}
-                              layout="fill"
-                              objectFit="contain"
-                            />
+                            {language.logo && language.logo !== "" ? (
+                              language.name === "Next.js" ? (
+                                <div style={{
+                                  width: "100%",
+                                  height: "100%",
+                                  borderRadius: "50%",
+                                  background: "#fff",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                  boxShadow: "0 2px 8px rgba(0,0,0,0.08)"
+                                }}>
+                                  <Image
+                                    src={language.logo}
+                                    alt={language.name}
+                                    layout="fill"
+                                    objectFit="contain"
+                                    style={{ filter: "drop-shadow(0 0 2px #fff)" }}
+                                  />
+                                </div>
+                              ) : (
+                                <Image
+                                  src={language.logo}
+                                  alt={language.name}
+                                  layout="fill"
+                                  objectFit="contain"
+                                />
+                              )
+                            ) : null}
+                            {language.icon ? language.icon : null}
                           </div>
                         ))}
                       </div>
@@ -636,14 +748,20 @@ export default function Projects() {
                           borderRadius: "8px",
                           padding: "6px",
                           boxShadow: "0 2px 8px rgba(0, 0, 0, 0.08)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center"
                         }}
                       >
-                        <Image
-                          src={language.logo}
-                          alt={language.name}
-                          layout="fill"
-                          objectFit="contain"
-                        />
+                        {language.logo && language.logo !== "" ? (
+                          <Image
+                            src={language.logo}
+                            alt={language.name}
+                            layout="fill"
+                            objectFit="contain"
+                          />
+                        ) : null}
+                        {language.icon ? language.icon : null}
                       </Box>
                     ))}
                   </Box>
